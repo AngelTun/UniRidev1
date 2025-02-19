@@ -1,0 +1,106 @@
+/* Reset básico y estilos globales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  /* Contenedor principal del login */
+  .login-container {
+    width: 350px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Contenedor del logo */
+  .logo-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Ajuste del logo */
+  .logo {
+    max-width: 150px;
+  }
+  
+  /* Estilos del formulario */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Grupos de campos */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Grupo de contraseña con botón para toggle */
+  .password-group {
+    position: relative;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #ffd500;
+  }
+  
+  /* Botón principal de inicio de sesión */
+  .btn-login {
+    padding: 10px;
+    background-color: #ffd500;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .btn-login:hover {
+    background-color: #ffd500;
+  }
+  
+  /* Contenedor de botones auxiliares */
+  .aux-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Estilos para botones de recuperar y registrarse */
+  .aux-buttons button {
+    background: none;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 0;
+  }
+  
+  .aux-buttons button:hover {
+    text-decoration: underline;
+  }
+  
