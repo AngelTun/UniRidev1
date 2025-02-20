@@ -54,7 +54,7 @@ body {
   
   /* Botón */
   .btn-recover {
-    background: #ff4b5c;
+    background: #ffd500;
     color: white;
     border: none;
     padding: 10px;
@@ -62,11 +62,11 @@ body {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    transition: background 0.2s ease-in-out;
   }
   
   .btn-recover:hover {
-    background: #d84350;
+    background: #9f8500;
   }
   
   /* Mensajes */

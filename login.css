@@ -78,10 +78,11 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 1em;
+    transition: background 0.2s ease-in-out;
   }
   
   .btn-login:hover {
-    background-color: #ffd500;
+    background-color: #9f8500;
   }
   
   /* Contenedor de botones auxiliares */

@@ -1,7 +1,8 @@
 <?php
 // Habilitar errores para depuración
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Conexión a la base de datos
 require 'conexion.php';
@@ -31,36 +32,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Crear una instancia de PHPMailer
             $mail = new PHPMailer(true);
             try {
-                // Configuración del servidor SMTP
+                // Configuración del servidor SMTP de Gmail
                 $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';  // Usa tu servidor SMTP
+                $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'agonzaleztun@gmail.com';  // Tu correo
-                $mail->Password = 'cmbomkxfewscezzn';  // Tu contraseña
+                $mail->Username = 'therapers100@gmail.com';  // Tu correo de Gmail
+                $mail->Password = 'qudsagkdkwzulufg'; // Tu contraseña de aplicación de Gmail
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
                 // Destinatario
-                $mail->setFrom('no-reply@UniRide.com', 'Recuperación de Contraseña');
-                $mail->addAddress($correo);     // Agregar destinatario
+                $mail->setFrom('agonzaleztun@gmail.com', 'Recuperación de Contraseña');
+                $mail->addAddress($correo);
 
                 // Contenido del correo
                 $mail->isHTML(true);
                 $mail->Subject = 'Recuperación de Contraseña';
                 $mail->Body    = "Hola, <br><br>Tu nueva contraseña temporal es: <strong>$nuevaPassword</strong><br><br>Por favor, inicia sesión y cámbiala lo antes posible.";
 
-                // Habilitar depuración para ver detalles del envío
-                $mail->SMTPDebug = 3;  // 0 = Desactivado, 1 = Errores, 2 = Errores y mensajes detallados
-                $mail->Debugoutput = 'html';  // Para mostrar la salida en formato HTML
+                // Depuración
+                $mail->SMTPDebug = 2;  
+                $mail->Debugoutput = 'html';  
 
                 // Enviar el correo
                 if ($mail->send()) {
                     echo "<script>alert('Se ha enviado una nueva contraseña a tu correo.'); window.location.href='InicioSesion.php';</script>";
                 } else {
-                    echo "<script>alert('Error al enviar el correo.'); window.location.href='recuperar.php';</script>";
+                    echo "<script>alert('Error al enviar el correo: " . $mail->ErrorInfo . "'); window.location.href='recuperar.php';</script>";
                 }
             } catch (Exception $e) {
-                echo "<script>alert('Error al enviar el correo: " . $mail->ErrorInfo . "'); window.location.href='recuperar.php';</script>";
+                echo "<script>alert('Error en el envío: " . $mail->ErrorInfo . "'); window.location.href='recuperar.php';</script>";
             }
         } else {
             echo "<script>alert('Error al actualizar la contraseña.'); window.location.href='recuperar.php';</script>";
