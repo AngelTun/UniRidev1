@@ -41,8 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
+                // Asegurar que el correo use UTF-8 para caracteres especiales
+                $mail->CharSet = 'UTF-8';
+
                 // Destinatario
-                $mail->setFrom('agonzaleztun@gmail.com', 'Recuperación de Contraseña');
+                $mail->setFrom('no-reply@UniRide.com', 'Recuperación de Contraseña');
                 $mail->addAddress($correo);
 
                 // Contenido del correo
