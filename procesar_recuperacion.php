@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Contenido del correo
                 $mail->isHTML(true);
                 $mail->Subject = 'Recuperación de Contraseña';
-                $mail->Body    = "Hola, <br><br>Tu nueva contraseña temporal es: <strong>$nuevaPassword</strong><br><br>Por favor, inicia sesión y cámbiala lo antes posible.";
+                $mail->Body    = "Hola, <br><br>Tu nueva contraseña temporal es: <strong>$nuevaPassword</strong><br><br>Por favor, inicia sesión y cámbiala lo antes posible o el hacker te la va a robar.";
 
                 // Depuración
                 $mail->SMTPDebug = 2;  

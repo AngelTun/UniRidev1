@@ -13,27 +13,27 @@
     <form id="registerForm" action="procesar_registro.php" method="POST">
       <div class="form-group">
         <label for="nombres">Nombres</label>
-        <input type="text" id="nombres" name="nombres" placeholder="Ingresar nombres" required>
+        <input type="text" id="nombres" name="nombres" placeholder="Ingresar nombres (Obligatorio)*" required>
       </div>
       <div class="form-group">
         <label for="apellidos">Apellidos</label>
-        <input type="text" id="apellidos" name="apellidos" placeholder="Ingresar apellidos" required>
+        <input type="text" id="apellidos" name="apellidos" placeholder="Ingresar apellidos (Obligatorio)*" required>
       </div>
       <div class="form-group">
         <label for="matricula">Matrícula</label>
-        <input type="text" id="matricula" name="matricula" placeholder="Ingresar matrícula" required>
+        <input type="text" id="matricula" name="matricula" placeholder="Ingresar matrícula (Obligatorio)*" required>
       </div>
       <div class="form-group">
         <label for="correo">Correo</label>
-        <input type="email" id="correo" name="correo" placeholder="Ingresar correo" required>
+        <input type="email" id="correo" name="correo" placeholder="Ingresar correo (Obligatorio)*" required>
       </div>
       <div class="form-group">
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" placeholder="Ingresar contraseña" required minlength="8">
+        <label for="password">Contraseña (8 Caracteres como mínimo)</label>
+        <input type="password" id="password" name="password" placeholder="Ingresar contraseña (Obligatorio)*" required minlength="8">
       </div>
       <div class="form-group">
         <label for="confirm_password">Confirmar Contraseña</label>
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar contraseña" required minlength="8">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar contraseña (Obligatorio)*" required minlength="8">
       </div>
       <button type="submit" class="btn-register">Confirmar Registro</button>
     </form>

@@ -24,7 +24,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $passwordInput = $_POST['password'];
 
     // Usar Prepared Statements para evitar inyección SQL
-    $stmt = $conn->prepare("SELECT nombres, password FROM usuarios WHERE correo = ?");
+    $stmt = $conn->prepare("SELECT id, nombres, correo, password FROM usuarios WHERE correo = ?");
     $stmt->bind_param("s", $correo);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -37,9 +37,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         if (password_verify($passwordInput, $row['password'])) {
             // Iniciar sesión
             session_start();
-            $_SESSION['usuario'] = $row['nombres'];
+            $_SESSION['usuario'] = $row['correo']; // Guarda el correo en la sesión
 
-            // Redirigir al dashboard
+            // Redirigir al perfil
             header("Location: dashboard.php");
             exit();
         } else {
