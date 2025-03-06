@@ -10,6 +10,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-VtkPeG2cL2SjoAIufnNf39U-RA0qQRc"></script>
   <!-- Nuestro CSS personalizado -->
   <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="perfil.css" />
   <script>
     // Inicializa el mapa para la sección "Inicio"
     function initMap() {
@@ -147,6 +148,41 @@
       sidebar.classList.toggle('sidebar-hidden');
       mainContent.classList.toggle('expanded');
     });
+
+    function enviarFormularioPerfil() {
+    const form = document.getElementById('formPerfil');
+    const formData = new FormData(form);
+
+    fetch('perfil.php', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Actualiza el contenido del contenedor con la respuesta
+        document.getElementById('contentContainer').innerHTML = data;
+
+        // Eliminar el mensaje de éxito/error después de 5 segundos
+        const mensajeExito = document.getElementById('mensajeExito');
+        const mensajeError = document.getElementById('mensajeError');
+
+        if (mensajeExito) {
+            setTimeout(() => {
+                mensajeExito.remove();
+            }, 5000); // 5000 milisegundos = 5 segundos
+        }
+
+        if (mensajeError) {
+            setTimeout(() => {
+                mensajeError.remove();
+            }, 5000); // 5000 milisegundos = 5 segundos
+        }
+    })
+    .catch(error => {
+        console.error("Error en la solicitud fetch:", error);
+    });
+}
   </script>
 </body>
 </html>

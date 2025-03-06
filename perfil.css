@@ -1,74 +1,100 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.container {
-    background: white;
+/* Contenedor principal del perfil */
+#formPerfil {
+    background-color: #fff;
+    max-width: 700px;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-    color: #333;
+/* Títulos */
+.main-title {
+    font-size: 2.5rem;
+    font-weight: bold;
     text-align: center;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+/* Estilo de campos de entrada */
+#formPerfil label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #333;
 }
 
-label {
-    margin-bottom: 5px;
+#formPerfil input[type="text"],
+#formPerfil input[type="email"],
+#formPerfil input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px; /* Más espacio entre campos */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+    transition: border-color 0.3s ease; /* Efecto al enfocar */
+}
+
+#formPerfil input[type="text"]:focus,
+#formPerfil input[type="email"]:focus,
+#formPerfil input[type="password"]:focus {
+    border-color: #ffcc00;
+    outline: none;
+}
+
+/* Botón */
+#formPerfil button {
+    background-color: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease; /* Transición más suave */
+}
+
+#formPerfil button:hover {
+    background-color: #e6b800;
+}
+
+/* Contenedor de mensajes */
+#contentContainer p {
+    text-align: center;
+    padding: 10px;
+    font-size: 1.1rem;
+}
+
+/* Mensajes de éxito y error */
+#mensajeExito {
+    color: #4CAF50;
     font-weight: bold;
 }
 
-input {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
+#mensajeError {
+    color: #F44336;
+    font-weight: bold;
 }
 
-button {
-    padding: 10px;
-    background-color: #1E3A8A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-}
+/* Fieldsets */
+fieldset { 
+    border: 2px solid #f0f0f0;
+    padding: 30px;  /* Más espacio dentro del fieldset */
+    margin-bottom: 40px;  /* Más espacio entre fieldsets */
+    border-radius: 8px;
+    background-color: #fafafa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}  
 
-button:hover {
-    background-color: #2563EB;
-}
-
-.mensaje {
-    text-align: center;
-    font-size: 1rem;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: none;
-}
-
-.mensaje.exito {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.mensaje.error {
-    background-color: #f8d7da;
-    color: #721c24;
+legend {
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 0 15px;
+    color: #333;
 }

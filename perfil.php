@@ -71,12 +71,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             ]);
         }
 
+        //actualizar datos
         if ($updated) {
-            // Redirigir al mismo perfil después de la actualización
-            header("Location: dashboard.php?status=success");
-            exit;
+
+                // Volver a obtener los datos actualizados del usuario
+            $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE correo = ?");
+            $stmt->execute([$correo]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+            echo "<p id='mensajeExito' style='color: green;'>Perfil actualizado correctamente.</p>";
         } else {
-            echo "<p style='color:red;'>Error al actualizar el perfil.</p>";
+            echo "<p id='mensajeError' style='color: red;'>Error al actualizar el perfil.</p>";
         }
     } else {
         // Mostrar errores
@@ -87,20 +93,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 }
 ?>
 
-
 <div>
     <h2 class="main-title">Perfil</h2>
 
-    <!-- Mostrar el mensaje de éxito o error -->
-    <?php if (isset($_GET['status'])): ?>
-        <?php if ($_GET['status'] === 'success'): ?>
-            <p style="color: green;">Perfil actualizado correctamente.</p>
-        <?php else: ?>
-            <p style="color: red;">Hubo un error al actualizar el perfil. Intenta de nuevo.</p>
-        <?php endif; ?>
-    <?php endif; ?>
+    <!-- Contenedor para mostrar mensajes de éxito/error -->
+    <div id="contentContainer">
+        <!-- Aquí se mostrará el mensaje de éxito/error -->
+    </div>
 
-    <form method="post" action="perfil.php">
+    <form id="formPerfil" method="post">
+        <input type="hidden" name="update" value="1"> <!-- Campo oculto -->
         <fieldset style="margin-bottom: 1rem;">
             <legend><strong>Datos Personales</strong></legend>
             <label for="nombres">Nombres:</label><br>
@@ -132,6 +134,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             <input type="password" id="confirm_password" name="confirm_password"><br>
         </fieldset>
 
-        <button type="submit" name="update">Actualizar Perfil</button>
+        <button type="button" onclick="enviarFormularioPerfil()">Actualizar Perfil</button>
     </form>
 </div>
+
+<script>
+function enviarFormularioPerfil() {
+    const form = document.getElementById('formPerfil');
+    const formData = new FormData(form);
+
+    fetch('perfil.php', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Actualiza el contenido del contenedor con la respuesta
+        document.getElementById('contentContainer').innerHTML = data;
+    })
+    .catch(error => {
+        console.error("Error en la solicitud fetch:", error);
+    });
+}
+</script>
