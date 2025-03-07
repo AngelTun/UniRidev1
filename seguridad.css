@@ -1,5 +1,5 @@
-/* Contenedor principal del perfil */
-#formPerfil {
+/* Contenedor principal de seguridad */
+#formSeguridad {
     background-color: #fff;
     max-width: 700px;
     margin: 20px auto;
@@ -18,8 +18,7 @@
 }
 
 /* Estilo de campos de entrada */
-#formPerfil label {
-    padding: 30px;
+#formSeguridad label {
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
@@ -27,28 +26,29 @@
     color: #333;
 }
 
-#formPerfil input[type="text"],
-#formPerfil input[type="email"],
-#formPerfil input[type="password"] {
+#formSeguridad input[type="password"] {
     width: 100%;
     padding: 12px;
-    margin-bottom: 20px; /* Más espacio entre campos */
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1.1rem;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
-    transition: border-color 0.3s ease; /* Efecto al enfocar */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
-#formPerfil input[type="text"]:focus,
-#formPerfil input[type="email"]:focus,
-#formPerfil input[type="password"]:focus {
+#formSeguridad input:focus {
     border-color: #ffcc00;
     outline: none;
 }
 
+/* Estilo para el checkbox (mostrar contraseñas) */
+#formSeguridad input[type="checkbox"] {
+    margin-top: 10px;
+}
+
 /* Botón */
-#formPerfil button {
+#formSeguridad button {
     background-color: #ffcc00;
     color: #000;
     font-weight: bold;
@@ -58,10 +58,10 @@
     cursor: pointer;
     width: 100%;
     font-size: 1.1rem;
-    transition: background-color 0.3s ease; /* Transición más suave */
+    transition: background-color 0.3s ease;
 }
 
-#formPerfil button:hover {
+#formSeguridad button:hover {
     background-color: #e6b800;
 }
 
@@ -72,22 +72,11 @@
     font-size: 1.1rem;
 }
 
-/* Mensajes de éxito y error */
-#mensajeExito {
-    color: #4CAF50;
-    font-weight: bold;
-}
-
-#mensajeError {
-    color: #F44336;
-    font-weight: bold;
-}
-
 /* Fieldsets */
 fieldset { 
     border: 2px solid #f0f0f0;
-    padding: 30px;  /* Más espacio dentro del fieldset */
-    margin-bottom: 40px;  /* Más espacio entre fieldsets */
+    padding: 30px;
+    margin-bottom: 40px;
     border-radius: 8px;
     background-color: #fafafa;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

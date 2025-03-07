@@ -11,6 +11,7 @@
   <!-- Nuestro CSS personalizado -->
   <link rel="stylesheet" href="dashboard.css" />
   <link rel="stylesheet" href="perfil.css" />
+  <link rel="stylesheet" href="seguridad.css" />
   <script>
     // Inicializa el mapa para la sección "Inicio"
     function initMap() {
@@ -97,8 +98,12 @@
             <a href="#" data-page="perfil" class="sidebar-link" onclick="changeSection('perfil'); return false;">Perfil</a>
           </li>
           <li>
+            <a href="#" data-page="seguridad" class="sidebar-link" onclick="changeSection('seguridad'); return false;">Seguridad</a>
+          </li>
+          <li>
             <a href="#" data-page="cerrarSesion" class="sidebar-link" onclick="changeSection('cerrarSesion'); return false;">Cerrar Sesión</a>
           </li>
+
         </ul>
       </nav>
     </aside>
