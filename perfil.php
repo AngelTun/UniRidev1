@@ -39,14 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
         // Actualizar el correo en la sesión si se cambió
         if ($correo !== $correo_usuario) {
             $_SESSION['usuario'] = $correo; // Actualiza la sesión con el nuevo correo
+            $correo_usuario = $correo;
             }
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE correo = ?");
         $stmt->execute([$correo_usuario]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user){
         echo "<p id='mensajeExito' style='color: green;'>Perfil actualizado correctamente.</p>";
     } else {
         echo "<p id='mensajeError' style='color: red;'>Error al actualizar el perfil.</p>";
     }
+}
 }
 ?>
 
