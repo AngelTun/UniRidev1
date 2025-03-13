@@ -1,19 +1,21 @@
-
 <?php
+// Configuración de la base de datos
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "uniride";
+$username = "root"; // Ajusta según tu configuración
+$password = ""; // Añade tu contraseña si tienes
+$database = "UniRide";
 
-// Crear una nueva conexión PDO
+// Conexión mysqli
+$conn = new mysqli($servername, $username, $password, $database);
+if ($conn->connect_error) {
+    die("Error de conexión (mysqli): " . $conn->connect_error);
+}
+
+// Conexión PDO
 try {
-    // Establecemos la conexión utilizando PDO
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-    
-    // Establecemos el modo de error de PDO a excepciones
+    $pdo = new PDO("mysql:host=$servername;dbname=$database;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    // Si hay un error, lo mostramos
-    die("Error de conexión: " . $e->getMessage());
+    die("Error de conexión (PDO): " . $e->getMessage());
 }
 ?>
