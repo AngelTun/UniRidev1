@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="dashboard.css" />
   <link rel="stylesheet" href="perfil.css" />
   <link rel="stylesheet" href="seguridad.css" />
+  <link rel="stylesheet" href="cerrarsesion.css" />
   <script>
     // Inicializa el mapa para la sección "Inicio"
     function initMap() {
@@ -43,9 +44,8 @@
       } else {
         // Ocultar el contenido integrado de "Inicio"
         document.getElementById('contentInicio').classList.add('hidden');
-        // Cargar el contenido del archivo HTML externo en contentContainer
-        fetch(page + ".php", {
-            credentials: 'include'})
+        // Cargar el contenido del archivo PHP externo en contentContainer
+        fetch(page + ".php", { credentials: 'include' })
           .then(response => response.text())
           .then(data => {
             document.getElementById('contentContainer').innerHTML = data;
@@ -103,7 +103,6 @@
           <li>
             <a href="#" data-page="cerrarSesion" class="sidebar-link" onclick="changeSection('cerrarSesion'); return false;">Cerrar Sesión</a>
           </li>
-
         </ul>
       </nav>
     </aside>
@@ -140,12 +139,12 @@
         <div id="map" class="map-container" style="height: 400px;"></div>
       </div>
       
-      <!-- Contenedor para cargar el contenido de los archivos HTML externos -->
+      <!-- Contenedor para cargar el contenido de los archivos PHP externos -->
       <div id="contentContainer" class="content-section hidden"></div>
     </main>
   </div>
 
-  <!-- Script para el toggle del sidebar -->
+  <!-- Script para el toggle del sidebar y las funciones fetch -->
   <script>
     document.getElementById('toggleSidebar').addEventListener('click', function () {
       const sidebar = document.getElementById('sidebar');
@@ -154,40 +153,77 @@
       mainContent.classList.toggle('expanded');
     });
 
+    // Función para enviar datos a perfil.php vía fetch (igual que ya tienes)
     function enviarFormularioPerfil() {
-    const form = document.getElementById('formPerfil');
-    const formData = new FormData(form);
+      const form = document.getElementById('formPerfil');
+      const formData = new FormData(form);
 
-    fetch('perfil.php', {
-        method: 'POST',
-        body: formData,
-        credentials: 'include'
-    })
-    .then(response => response.text())
-    .then(data => {
-        // Actualiza el contenido del contenedor con la respuesta
-        document.getElementById('contentContainer').innerHTML = data;
+      fetch('perfil.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include'
+      })
+      .then(response => response.text())
+      .then(data => {
+          // Actualiza el contenido del contenedor con la respuesta
+          document.getElementById('contentContainer').innerHTML = data;
 
-        // Eliminar el mensaje de éxito/error después de 5 segundos
-        const mensajeExito = document.getElementById('mensajeExito');
-        const mensajeError = document.getElementById('mensajeError');
+          // Eliminar el mensaje de éxito/error después de 5 segundos
+          const mensajeExito = document.getElementById('mensajeExito');
+          const mensajeError = document.getElementById('mensajeError');
 
-        if (mensajeExito) {
-            setTimeout(() => {
-                mensajeExito.remove();
-            }, 5000); // 5000 milisegundos = 5 segundos
-        }
+          if (mensajeExito) {
+              setTimeout(() => {
+                  mensajeExito.remove();
+              }, 5000);
+          }
 
-        if (mensajeError) {
-            setTimeout(() => {
-                mensajeError.remove();
-            }, 5000); // 5000 milisegundos = 5 segundos
-        }
-    })
-    .catch(error => {
-        console.error("Error en la solicitud fetch:", error);
-    });
-}
+          if (mensajeError) {
+              setTimeout(() => {
+                  mensajeError.remove();
+              }, 5000);
+          }
+      })
+      .catch(error => {
+          console.error("Error en la solicitud fetch:", error);
+      });
+    }
+
+    // Función para enviar datos a seguridad.php vía fetch, de forma similar a la de perfil.php
+    function enviarFormularioSeguridad() {
+      const form = document.getElementById('formSeguridad');
+      const formData = new FormData(form);
+
+      fetch('seguridad.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include'
+      })
+      .then(response => response.text())
+      .then(data => {
+          // Actualiza el contenido del contenedor con la respuesta
+          document.getElementById('contentContainer').innerHTML = data;
+
+          // Eliminar el mensaje de éxito/error después de 5 segundos
+          const mensajeExito = document.getElementById('mensajeExito');
+          const mensajeError = document.getElementById('mensajeError');
+
+          if (mensajeExito) {
+              setTimeout(() => {
+                  mensajeExito.remove();
+              }, 5000);
+          }
+
+          if (mensajeError) {
+              setTimeout(() => {
+                  mensajeError.remove();
+              }, 5000);
+          }
+      })
+      .catch(error => {
+          console.error("Error en la solicitud fetch:", error);
+      });
+    }
   </script>
 </body>
 </html>
