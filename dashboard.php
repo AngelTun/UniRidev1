@@ -144,8 +144,9 @@
     </main>
   </div>
 
-  <!-- Script para el toggle del sidebar y las funciones fetch -->
+  <!-- Script para el toggle del sidebar, fetch y delegación de eventos -->
   <script>
+    // Toggle del sidebar
     document.getElementById('toggleSidebar').addEventListener('click', function () {
       const sidebar = document.getElementById('sidebar');
       const mainContent = document.getElementById('mainContent');
@@ -153,7 +154,7 @@
       mainContent.classList.toggle('expanded');
     });
 
-    // Función para enviar datos a perfil.php vía fetch (igual que ya tienes)
+    // Función para enviar datos a perfil.php vía fetch (ejemplo)
     function enviarFormularioPerfil() {
       const form = document.getElementById('formPerfil');
       const formData = new FormData(form);
@@ -165,31 +166,23 @@
       })
       .then(response => response.text())
       .then(data => {
-          // Actualiza el contenido del contenedor con la respuesta
           document.getElementById('contentContainer').innerHTML = data;
 
-          // Eliminar el mensaje de éxito/error después de 5 segundos
+          // Eliminar mensaje de éxito/error después de 5 segundos
           const mensajeExito = document.getElementById('mensajeExito');
           const mensajeError = document.getElementById('mensajeError');
 
           if (mensajeExito) {
-              setTimeout(() => {
-                  mensajeExito.remove();
-              }, 5000);
+              setTimeout(() => mensajeExito.remove(), 5000);
           }
-
           if (mensajeError) {
-              setTimeout(() => {
-                  mensajeError.remove();
-              }, 5000);
+              setTimeout(() => mensajeError.remove(), 5000);
           }
       })
-      .catch(error => {
-          console.error("Error en la solicitud fetch:", error);
-      });
+      .catch(error => console.error("Error en la solicitud fetch:", error));
     }
 
-    // Función para enviar datos a seguridad.php vía fetch, de forma similar a la de perfil.php
+    // Función para enviar datos a seguridad.php vía fetch
     function enviarFormularioSeguridad() {
       const form = document.getElementById('formSeguridad');
       const formData = new FormData(form);
@@ -201,29 +194,53 @@
       })
       .then(response => response.text())
       .then(data => {
-          // Actualiza el contenido del contenedor con la respuesta
-          document.getElementById('contentContainer').innerHTML = data;
+          // Aquí actualizamos el contenedor de mensajes en seguridad.php (msgContainer)
+          document.getElementById('msgContainer').innerHTML = data;
 
-          // Eliminar el mensaje de éxito/error después de 5 segundos
-          const mensajeExito = document.getElementById('mensajeExito');
-          const mensajeError = document.getElementById('mensajeError');
-
-          if (mensajeExito) {
-              setTimeout(() => {
-                  mensajeExito.remove();
-              }, 5000);
+          // Si se actualizó correctamente, limpiar el formulario
+          if (data.includes('mensajeExito')) {
+              form.reset();
           }
-
-          if (mensajeError) {
-              setTimeout(() => {
-                  mensajeError.remove();
-              }, 5000);
-          }
+          // Eliminar el mensaje después de 5 segundos
+          setTimeout(() => {
+              const mensaje = document.getElementById('mensajeExito') || document.getElementById('mensajeError');
+              if (mensaje) mensaje.remove();
+          }, 5000);
       })
-      .catch(error => {
-          console.error("Error en la solicitud fetch:", error);
-      });
+      .catch(error => console.error("Error en la solicitud fetch:", error));
     }
+
+    // Delegación de eventos para mostrar/ocultar contraseñas
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.classList.contains('toggle-password')) {
+        const targetId = e.target.getAttribute('data-target');
+        const passwordInput = document.getElementById(targetId);
+        if (passwordInput) {
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            e.target.textContent = '🔒';
+          } else {
+            passwordInput.type = 'password';
+            e.target.textContent = '👁️';
+          }
+        }
+      }
+    });
+
+    // Delegación de eventos para la validación en tiempo real de la contraseña
+    document.addEventListener('input', function(e) {
+      if (e.target && e.target.id === 'new_password') {
+        const password = e.target.value;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const isValid = password.length >= 8 && hasUpperCase && hasNumber;
+        if (password.length > 0) {
+          e.target.style.borderColor = isValid ? '#27ae60' : '#e74c3c';
+        } else {
+          e.target.style.borderColor = '#ddd';
+        }
+      }
+    });
   </script>
 </body>
 </html>

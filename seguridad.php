@@ -1,9 +1,9 @@
-<?php
+<?php 
 session_start();
 
 // Verifica si el usuario está logueado
 if (!isset($_SESSION['usuario'])) {
-    echo "<p>Debe iniciar sesión para ver esta página.</p>";
+    echo "<p id='mensajeError' style='color: red;'>Debe iniciar sesión para ver esta página.</p>";
     exit;
 }
 
@@ -16,7 +16,7 @@ $stmt->execute([$correo_usuario]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-    echo "<p>No se encontró el usuario con el correo: $correo_usuario.</p>";
+    echo "<p id='mensajeError' style='color: red;'>No se encontró el usuario con el correo: $correo_usuario.</p>";
     exit;
 }
 
@@ -31,10 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
         $errors[] = "Debe completar todos los campos de contraseña.";
     } else {
         if (!password_verify($old_password, $user['password'])) {
-            $errors[] = "La contraseña antigua es incorrecta.";
+            $errors[] = "La contraseña actual es incorrecta.";
         }
         if ($new_password !== $confirm_password) {
             $errors[] = "La nueva contraseña y su confirmación no coinciden.";
+        }
+        if (strlen($new_password) < 8) {
+            $errors[] = "La contraseña debe tener al menos 8 caracteres.";
+        }
+        if (!preg_match('/[A-Z]/', $new_password)) {
+            $errors[] = "La contraseña debe contener al menos una letra mayúscula.";
+        }
+        if (!preg_match('/[0-9]/', $new_password)) {
+            $errors[] = "La contraseña debe contener al menos un número.";
         }
     }
 
@@ -43,30 +52,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
         $stmt = $pdo->prepare("UPDATE usuarios SET password = ? WHERE correo = ?");
         $updated = $stmt->execute([$new_password_hash, $correo_usuario]);
 
-        echo $updated ? "<p style='color: green;'>Contraseña actualizada correctamente.</p>" : "<p style='color: red;'>Error al actualizar la contraseña.</p>";
-    } else {
-        foreach ($errors as $error) {
-            echo "<p style='color:red;'>$error</p>";
+        if ($updated) {
+            echo "<p id='mensajeExito' style='color: green;'>Contraseña actualizada correctamente.</p>";
+        } else {
+            echo "<p id='mensajeError' style='color: red;'>Error al actualizar la contraseña.</p>";
         }
+    } else {
+        echo "<p id='mensajeError' style='color: red;'>" . implode("<br>", $errors) . "</p>";
     }
+    exit;
 }
 ?>
 
-<div>
-    <h2 class="main-title">Cambiar Contraseña</h2>
+<div class="security-page">
+    <div class="security-container">
+        <!-- Contenedor para mostrar los mensajes encima del contenido del formulario -->
+        <div id="msgContainer"></div>
 
-    <form id="formSeguridad" method="post">
-        <input type="hidden" name="change_password" value="1">
+        <h2 class="main-title">Cambiar Contraseña</h2>
 
-        <label for="old_password">Contraseña antigua:</label><br>
-        <input type="password" id="old_password" name="old_password"><br>
+        <!-- Formulario de cambio de contraseña -->
+        <form id="formSeguridad" method="post">
+            <input type="hidden" name="change_password" value="1">
 
-        <label for="new_password">Nueva Contraseña:</label><br>
-        <input type="password" id="new_password" name="new_password"><br>
+            <div class="form-group">
+                <label for="old_password">Contraseña actual *</label>
+                <div class="password-container">
+                    <input type="password" id="old_password" name="old_password" required>
+                    <button type="button" class="toggle-password" data-target="old_password">👁️</button>
+                </div>
+            </div>
 
-        <label for="confirm_password">Confirmar Nueva Contraseña:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password"><br>
+            <div class="form-group">
+                <label for="new_password">Nueva contraseña *</label>
+                <div class="password-container">
+                    <input type="password" id="new_password" name="new_password" required>
+                    <button type="button" class="toggle-password" data-target="new_password">👁️</button>
+                </div>
+                <small class="hint">La contraseña debe tener al menos 8 caracteres, incluir una mayúscula y un número.</small>
+            </div>
 
-        <button type="submit">Actualizar Contraseña</button>
-    </form>
+            <div class="form-group">
+                <label for="confirm_password">Confirmar nueva contraseña *</label>
+                <div class="password-container">
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <button type="button" class="toggle-password" data-target="confirm_password">👁️</button>
+                </div>
+            </div>
+
+            <button type="button" class="btn-confirm" onclick="enviarFormularioSeguridad()">Confirmar</button>
+        </form>
+    </div>
 </div>
