@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="dashboard.css" />
   <link rel="stylesheet" href="perfil.css" />
   <link rel="stylesheet" href="seguridad.css" />
+  <link rel="stylesheet" href="mensajes.css" />
   <link rel="stylesheet" href="cerrarsesion.css" />
   <script>
     // Inicializa el mapa para la sección "Inicio"
